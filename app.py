@@ -1,4 +1,3 @@
-# --- app.py: Fake vs True News Detector ---
 import streamlit as st
 import tensorflow as tf
 import pickle
@@ -18,13 +17,14 @@ def predict_news(text):
     prediction = model.predict(padded)[0][0]
     confidence = float(prediction) if prediction > 0.5 else float(1 - prediction)
     label = "Fake" if prediction > 0.5 else "True"
-    return label, confidence * 100
+    return label, confidence*100
 
 # --- Streamlit UI ---
 st.title("Fake vs True News Detector")
 st.write("Enter your news text below to check if it is Fake or True:")
 
 user_input = st.text_area("Enter your news text here:")
+
 if st.button("Predict"):
     label, confidence = predict_news(user_input)
     st.success(f"Prediction: {label} | Confidence: {confidence:.2f}%")
